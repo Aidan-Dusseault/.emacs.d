@@ -5,8 +5,10 @@
 /.emacs.desktop.lock
 *.elc
 auto-save-list
+history
 tramp
 .\#*
+*.eld
 
 # Org-mode
 .org-id-locations
