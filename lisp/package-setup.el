@@ -7,8 +7,8 @@ Return a list of installed packages or nil for every skipped package."
   (mapcar
    (lambda (package)
      ;; (package-installed-p 'evil)
-     (if (package-installed-p package)
-         nil
+         (if (package-installed-p package)
+             nil
            (package-install package)))
    packages))
 
@@ -16,8 +16,6 @@ Return a list of installed packages or nil for every skipped package."
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
 (or (file-exists-p package-user-dir)
     (package-refresh-contents))
-
-()
 
 (ensure-package-installed
  'auto-complete

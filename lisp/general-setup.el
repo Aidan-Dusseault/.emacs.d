@@ -9,11 +9,12 @@
 
 ;;ido
 (require 'ido)
-    (ido-mode t)
+(ido-mode t)
 
 ;; Line numbering
 (require 'linum)
 (global-linum-mode 1)
+(setq linum-format "%d ")
 
 ;; make buffer names unique even if the files have the same names
 (require 'uniquify)
@@ -147,8 +148,6 @@
 
 (delete-selection-mode 1)
 
-;; Start maximized
-(set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; Custom keybinds
 (global-set-key (kbd "C-M-j") 'goto-line)
