@@ -51,12 +51,16 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
-;;Popup killring
-(require 'popup)
-(require 'pos-tip)
-(require 'popup-kill-ring)
-(global-set-key "\M-y" 'popup-kill-ring)
-
+;;Killring completion
+(defun konix/kill-ring-insert ()
+  (interactive)
+  (let ((to_insert (completing-read "Yank : "
+                                    (delete-duplicates kill-ring :test #'equal))))
+    (when (and to_insert (region-active-p))
+      ;; the currently highlighted section is to be replaced by the yank
+      (delete-region (region-beginning) (region-end)))
+    (insert to_insert)))
+(global-set-key "\M-y" 'konix/kill-ring-insert)
 
 ;; set default directory
 (setq default-directory "~/")

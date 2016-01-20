@@ -31,7 +31,6 @@ Return a list of installed packages or nil for every skipped package."
  'linum
  'lua-mode
  'mic-paren
- 'popup-kill-ring
  'powerline
  'projectile
  'rainbow-delimiters
