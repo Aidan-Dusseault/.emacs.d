@@ -109,9 +109,9 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;;Spaceline
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
+;;Powerline
+(require 'powerline)
+(powerline-vim-theme)
 
 
 ;;smooth scrolling
