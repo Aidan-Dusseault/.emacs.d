@@ -109,9 +109,9 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;;Smart mode line
-(require 'smart-mode-line)
-(sml/setup)
+;;Spaceline
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
 
 
 ;;smooth scrolling

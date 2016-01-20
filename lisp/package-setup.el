@@ -35,9 +35,9 @@ Return a list of installed packages or nil for every skipped package."
  'powerline
  'projectile
  'rainbow-delimiters
- 'smart-mode-line
  'smartparens
  'smooth-scrolling
+ 'spaceline
  'undo-tree
  'web-mode
  'yasnippet

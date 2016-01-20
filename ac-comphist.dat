@@ -1,18 +1,18 @@
-((("spaceline" .
-   [2 0 0 0 0 0 0 0 0])
-  ("popup-kill-ring" .
-   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("global-set-key" .
-   [0 0 0 0 0 0 0 0 0 0 1 0 0 0])
-  ("popup-killring" .
+((("smart-mode-line" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("require" .
+   [7 0 0 0 0 0 2])
+  ("rainbow-delimiters" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1])
+  ("prog-mode-hook" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("popup" .
    [1 0 0 0 0])
-  ("prog-mode-hook" .
+  ("popup-killring" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("rainbow-delimiters" .
-   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1])
-  ("require" .
-   [7 0 0 0 0 0 1])
-  ("smart-mode-line" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])))
+  ("global-set-key" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("popup-kill-ring" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("spaceline" .
+   [2 0 0 0 0 0 0 0 0])))
