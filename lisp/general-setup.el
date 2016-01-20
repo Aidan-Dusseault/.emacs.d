@@ -7,9 +7,32 @@
 ;;silence beeping
 (setq ring-bell-function #'ignore)
 
+;;Autocomplete
+(ac-config-default)
+
 ;;ido
 (require 'ido)
 (ido-mode t)
+(ido-everywhere 1)
+
+(require 'ido-ubiquitous)
+(ido-ubiquitous-mode 1)
+
+(require 'flx-ido)
+(flx-ido-mode 1)
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+(require 'ido-vertical-mode)
+(ido-vertical-mode 1)
+(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+
+;;Indent guide
+(require 'indent-guide)
+(indent-guide-global-mode)
+
+;;Aggressive indenting
+(add-hook 'prog-mode-hook #'aggressive-indent-mode)
 
 ;; Line numbering
 (require 'linum)
@@ -19,6 +42,21 @@
 ;; make buffer names unique even if the files have the same names
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;;Flycheck
+(require 'flycheck)
+(global-flycheck-mode)
+
+;;Rainbow delimiters
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+
+;;Popup killring
+(require 'popup)
+(require 'pos-tip)
+(require 'popup-kill-ring)
+(global-set-key "\M-y" 'popup-kill-ring)
+
 
 ;; set default directory
 (setq default-directory "~/")
@@ -67,14 +105,14 @@
 
 ;;backups and auto-saves in temp directory
 (setq backup-directory-alist
-          `((".*" . ,temporary-file-directory)))
-    (setq auto-save-file-name-transforms
-          `((".*" ,temporary-file-directory t)))
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
+;;Smart mode line
+(require 'smart-mode-line)
+(sml/setup)
 
-;;powerline
-(require 'powerline)
-(powerline-default-theme)
 
 ;;smooth scrolling
 (require 'smooth-scrolling)
