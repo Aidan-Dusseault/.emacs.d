@@ -21,12 +21,11 @@ Return a list of installed packages or nil for every skipped package."
  'aggressive-indent
  'auto-complete
  'emmet-mode
- 'flycheck
  'flx-ido
+ 'flycheck
  'grizzl
  'ido
  'ido-ubiquitous
- 'ido-vertical-mode
  'indent-guide
  'linum
  'lua-mode
@@ -35,6 +34,7 @@ Return a list of installed packages or nil for every skipped package."
  'projectile
  'rainbow-delimiters
  'smartparens
+ 'smex
  'smooth-scrolling
  'undo-tree
  'web-mode

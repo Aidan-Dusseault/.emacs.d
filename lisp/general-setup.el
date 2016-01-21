@@ -23,9 +23,12 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
 
-(require 'ido-vertical-mode)
-(ido-vertical-mode 1)
-(setq ido-vertical-define-keys 'C-n-and-C-p-only)
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 ;;Indent guide
 (require 'indent-guide)
