@@ -18,8 +18,8 @@ Return a list of installed packages or nil for every skipped package."
     (package-refresh-contents))
 
 (ensure-package-installed
- 'aggressive-indent
  'auto-complete
+ 'aggressive-indent
  'emmet-mode
  'flx-ido
  'flycheck
@@ -33,6 +33,7 @@ Return a list of installed packages or nil for every skipped package."
  'powerline
  'projectile
  'rainbow-delimiters
+ 'rainbow-mode
  'smartparens
  'smex
  'smooth-scrolling

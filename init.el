@@ -7,7 +7,6 @@
 
 (load "package-setup.el")
 (load "general-setup.el")
-(load "auto-complete-config.el")
 (load "projectile-config.el")
 (load "haskell-config.el")
 
