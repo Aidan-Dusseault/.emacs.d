@@ -5,7 +5,9 @@
 			 ("marmalade" . "https://marmalade-repo.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")))
 
-(load "package-setup.el")
+(package-initialize)
+
+;; (load "package-setup.el")
 (load "general-setup.el")
 (load "projectile-config.el")
 (load "haskell-config.el")
