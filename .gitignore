@@ -6,6 +6,9 @@
 *.elc
 auto-save-list
 local-settings.el
+places
+ido.last
+recentf
 ac-comphist.dat
 smex-items
 history
