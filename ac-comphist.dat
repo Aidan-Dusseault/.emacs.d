@@ -1,30 +1,30 @@
-((("test" .
-   [1 0 0 0])
-  ("smex" .
-   [1 0 0 0])
-  ("telephone-line" .
-   [0 0 0 0 0 0 0 0 0 0 0 0 0 1])
-  ("tex" .
-   [0 0 1])
-  ("spaceline" .
-   [2 0 0 0 0 0 0 0 0])
-  ("popup-kill-ring" .
-   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
-  ("global-set-key" .
-   [0 0 0 0 0 0 0 0 0 0 1 0 0 0])
-  ("popup-killring" .
+((("powerline-nano-theme" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("powerline" .
+   [1 0 0 0 0 0 0 0 0])
+  ("smart-mode-line" .
+   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
+  ("require" .
+   [10 0 0 0 0 0 2])
+  ("rainbow-delimiters" .
+   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1])
+  ("prog-mode-hook" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0])
   ("popup" .
    [1 0 0 0 0])
-  ("prog-mode-hook" .
+  ("popup-killring" .
    [1 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("rainbow-delimiters" .
-   [0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1])
-  ("require" .
-   [10 0 0 0 0 0 2])
-  ("smart-mode-line" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0])
-  ("powerline" .
-   [1 0 0 0 0 0 0 0 0])
-  ("powerline-nano-theme" .
-   [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0])))
+  ("global-set-key" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0])
+  ("popup-kill-ring" .
+   [0 0 0 0 0 0 0 0 0 0 1 0 0 0 0])
+  ("spaceline" .
+   [2 0 0 0 0 0 0 0 0])
+  ("tex" .
+   [0 0 1])
+  ("telephone-line" .
+   [0 0 0 0 0 0 0 0 0 0 0 0 0 1])
+  ("smex" .
+   [1 0 0 0])
+  ("test" .
+   [1 0 0 0])))

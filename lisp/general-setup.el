@@ -10,7 +10,7 @@
 ;;Autocomplete
 (ac-config-default)
 
-;;ido
+;;Ido
 (require 'ido)
 (ido-mode t)
 (ido-everywhere 1)
@@ -32,7 +32,8 @@
 
 ;;Indent guide
 (require 'indent-guide)
-(indent-guide-global-mode)
+(add-hook 'prog-mode-hook #'indent-guide-mode)
+(setq indent-guide-recursive t)
 
 ;;Aggressive indenting
 (add-hook 'prog-mode-hook #'aggressive-indent-mode)
@@ -40,7 +41,7 @@
 ;; Line numbering
 (require 'linum)
 (global-linum-mode 1)
-(setq linum-format "%d ")
+(setq linum-format "%2d \u2502 ")
 
 ;; make buffer names unique even if the files have the same names
 (require 'uniquify)
@@ -195,8 +196,8 @@
 
 
 ;; Custom keybinds
-(global-set-key (kbd "C-M-j") 'goto-line)
-(global-set-key (kbd "C-M-u") 'undo)
+(global-set-key (kbd "C-j") 'goto-line)
+(global-set-key (kbd "C-/") 'undo)
 
 ;; Undo tree
 (global-undo-tree-mode t)

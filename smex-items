@@ -1,16 +1,17 @@
 
 ;; ----- smex-history -----
 (
+ eval-region
+ whitespace-mode
  cd
  5x5
  arp
  dbx
  dig
- erc
- ert
 )
 
 ;; ----- smex-data -----
 (
- 
+ (eval-region . 6)
+ (whitespace-mode . 2)
 )
