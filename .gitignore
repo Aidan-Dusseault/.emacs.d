@@ -6,6 +6,7 @@
 *.elc
 auto-save-list
 ac-comphist.dat
+smex-items
 history
 tramp
 .\#*
