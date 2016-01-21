@@ -11,6 +11,8 @@
 (load "general-setup.el")
 (load "projectile-config.el")
 (load "haskell-config.el")
+(if (file-readable-p (expand-file-name "~/.emacs.d/lisp/local-settings.el"))
+    (load "local-settings.el"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

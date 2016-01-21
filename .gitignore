@@ -5,6 +5,7 @@
 /.emacs.desktop.lock
 *.elc
 auto-save-list
+local-settings.el
 ac-comphist.dat
 smex-items
 history
