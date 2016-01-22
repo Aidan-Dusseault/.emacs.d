@@ -108,3 +108,6 @@
 ;; Custom keybinds
 (global-set-key (kbd "C-j") 'goto-line)
 (global-set-key (kbd "C-/") 'undo)
+
+;;Highligh parentheses
+(add-hook 'prog-mode-hook #'show-paren-mode)
