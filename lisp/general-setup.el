@@ -76,17 +76,14 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 ;;persistency
-; save the place in files
-(require 'saveplace)
+;;save the place in files
 (setq-default save-place t)
 
 ;; show recent files
-(require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 1000)
 
 ;; save minibuffer history
-(require 'savehist)
 (savehist-mode t)
 
 ;; Use the system clipboard
