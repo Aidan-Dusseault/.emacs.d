@@ -1,3 +1,5 @@
+;;Initialization and configuration of variables
+
 ;; Set the starting position and width and height of Emacs Window
 (add-to-list 'default-frame-alist '(left . 0))
 (add-to-list 'default-frame-alist '(top . 0))
@@ -8,53 +10,7 @@
 (setq ring-bell-function #'ignore)
 
 ;;No new frames
-(setq ns-pop-up-frames nil)
-
-;;Auto-complete
-(require 'auto-complete-config)
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-
-;;Ido
-(require 'ido)
-(ido-mode t)
-(ido-everywhere 1)
-
-(require 'ido-ubiquitous)
-(ido-ubiquitous-mode 1)
-
-(require 'flx-ido)
-(flx-ido-mode 1)
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-
-;;Indent guide
-(require 'indent-guide)
-(add-hook 'prog-mode-hook #'indent-guide-mode)
-(setq indent-guide-recursive t)
-
-;;Aggressive indenting
-(add-hook 'prog-mode-hook #'aggressive-indent-mode)
-
-;; Line numbering
-(require 'linum)
-(global-linum-mode 1)
-(setq linum-format "%2d \u2502 ")
-
-;; make buffer names unique even if the files have the same names
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-
-;;Flycheck
-(require 'flycheck)
-(global-flycheck-mode)
-
-;;Rainbow delimiters
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-(require 'rainbow-mode)
-(add-hook 'prog-mode-hook #'rainbow-mode)
+(setq ns-pop-up-frames nil)b
 
 ;;Killring completion
 (defun konix/kill-ring-insert ()
@@ -95,42 +51,19 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 
+(menu-bar-mode nil)
 
-(menu-bar-mode t)
- 
-;; trucate even even when screen is split into multiple windows
+;; truncate even even when screen is split into multiple windows
 (setq-default truncate-partial-width-windows nil)
  
 ;; y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-
-;;smartparens
-(require 'smartparens-config)
-(smartparens-global-mode t)
-
 
 ;;backups and auto-saves in temp directory
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-
-;;Powerline
-(require 'powerline)
-(powerline-vim-theme)
-
-
-;;smooth scrolling
-(require 'smooth-scrolling)
-
-;;yasnippet
-(require 'yasnippet)
-(yas-reload-all)
-(add-hook 'prog-mode-hook
-          '(lambda ()
-             (yas-minor-mode)))
-(add-to-list 'yas/root-directory "~/.emacs.d/git/yasnippet-snippets")
 
 ;;syntax highlighting
 (global-font-lock-mode 1)
@@ -161,42 +94,17 @@
 
 ;; newline and indent on return
 (add-hook 'prog-mode-hook '(lambda ()
-  (local-set-key (kbd "RET") 'newline-and-indent)))
-
-(require 'mic-paren) ; loading
-(paren-activate)     ; activating
+                             (local-set-key (kbd "RET") 'newline-and-indent)))
 
 ;; web indent
 (setq-default web-mode-markup-indent-offset tab-width)
 (setq-default web-mode-css-indent-offset tab-width)
 (setq-default web-mode-code-indent-offset tab-width)
-(setq-default web-mode-sql-indent-offset tab-width)
+(setq-default web-mode-sql-indent-offset tab-width)b
 
-;;emmet-mode
-(require 'emmet-mode)
-(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
-(add-hook 'css-mode-hook  'emmet-mode) ;; enable Emmet's css abbreviation.
-
-
-;;web-mode
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-(setq web-mode-enable-auto-pairing nil)
-
+;;Overwrite selections
 (delete-selection-mode 1)
-
 
 ;; Custom keybinds
 (global-set-key (kbd "C-j") 'goto-line)
 (global-set-key (kbd "C-/") 'undo)
-
-;; Undo tree
-(global-undo-tree-mode t)

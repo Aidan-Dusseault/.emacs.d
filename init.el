@@ -7,13 +7,13 @@
 
 (package-initialize)
 
-;; (load "package-setup.el")
 (load "general-setup.el")
-(load "projectile-config.el")
-(load "haskell-config.el")
+(load "package-setup.el")
 (if (file-readable-p (expand-file-name "~/.emacs.d/lisp/local-settings.el"))
     (load "local-settings.el"))
 
+
+;;Automatic additions from Custom
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
