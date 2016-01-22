@@ -51,7 +51,7 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 
-(menu-bar-mode nil)
+(menu-bar-mode t)
 
 ;; truncate even even when screen is split into multiple windows
 (setq-default truncate-partial-width-windows nil)
