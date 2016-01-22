@@ -111,3 +111,9 @@
 
 ;;Highligh parentheses
 (add-hook 'prog-mode-hook #'show-paren-mode)
+
+;;Disable built in scroll
+(setq auto-window-vscroll nil)
+
+(global-set-key "\M-n" 'scroll-up-line)
+(global-set-key "\M-p" 'scroll-down-line)
