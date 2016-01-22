@@ -10,7 +10,7 @@
 (setq ring-bell-function #'ignore)
 
 ;;No new frames
-(setq ns-pop-up-frames nil)b
+(setq ns-pop-up-frames nil)
 
 ;;Killring completion
 (defun konix/kill-ring-insert ()
@@ -100,7 +100,7 @@
 (setq-default web-mode-markup-indent-offset tab-width)
 (setq-default web-mode-css-indent-offset tab-width)
 (setq-default web-mode-code-indent-offset tab-width)
-(setq-default web-mode-sql-indent-offset tab-width)b
+(setq-default web-mode-sql-indent-offset tab-width)
 
 ;;Overwrite selections
 (delete-selection-mode 1)

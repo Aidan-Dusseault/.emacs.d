@@ -63,6 +63,7 @@
 (setq linum-format "%2d \u2502 ")
 
 ;;Magit
+(require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
