@@ -67,7 +67,6 @@
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 ;;Mic-paren
-(require 'mic-paren)
 (paren-activate)
 
 ;;Projectile
