@@ -114,3 +114,5 @@
 
 (global-set-key "\M-n" 'scroll-up-line)
 (global-set-key "\M-p" 'scroll-down-line)
+(global-set-key (kbd "C-o") 'universal-argument)
+(global-set-key (kbd "C-u") 'undo)
