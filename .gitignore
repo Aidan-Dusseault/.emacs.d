@@ -36,5 +36,4 @@ tramp
 # cask packages
 .cask/
 
-#elpa archives
-/elpa/archives
+!/elpa/
