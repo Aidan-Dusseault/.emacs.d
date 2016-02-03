@@ -1,6 +1,5 @@
 ;;Initialization and configuration for packages
 ;;Contains:
-;;Aggressive-indent
 ;;Auto-complete
 ;;Emmet-mode
 ;;Flycheck
@@ -20,12 +19,9 @@
 ;;Yasnippet
 ;;Web-mode
 
-;;Aggressive-indent
-(add-hook 'prog-mode-hook #'aggressive-indent-mode)
-
 ;;Auto-complete
 (ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(add-to-list 'load-path "~/.emacs.d/ac-dict")
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
@@ -49,8 +45,8 @@
 (add-hook 'prog-mode-hook #'indent-guide-mode)
 (setq indent-guide-recursive t)
 
-;; Line numberingg
-(global-linum-mode 1)
+;; Line numbering
+(add-hook 'prog-mode-hook #'linum-mode)
 (setq linum-format "%2d \u2502 ")
 
 ;;Magit
@@ -67,7 +63,12 @@
 (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 ;;Powerline
-(powerline-vim-theme)
+(if (display-graphic-p)
+    (progn
+      ;; if graphic
+      (powerline-default-theme))
+  ;; else (optional)
+  (powerline-vim-theme))
 
 ;;Rainbow-delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
