@@ -21,6 +21,17 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(comint-buffer-maximum-size 20000)
+ '(comint-completion-addsuffix t)
+ '(comint-completion-autolist t)
+ '(comint-get-old-input (lambda nil "") t)
+ '(comint-input-ignoredups t)
+ '(comint-input-ring-size 5000)
+ '(comint-move-point-for-output nil)
+ '(comint-prompt-read-only nil)
+ '(comint-scroll-show-maximum-output t)
+ '(comint-scroll-to-bottom-on-input t)
+ '(comint-scroll-to-bottom-on-output nil)
  '(custom-enabled-themes (quote (wombat)))
  '(custom-safe-themes
    (quote
@@ -29,6 +40,7 @@
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(inhibit-default-init t)
  '(initial-buffer-choice t)
+ '(protect-buffer-bury-p nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
@@ -56,4 +68,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(blank-empty ((t nil)))
+ '(blank-hspace ((t (:background "grey24" :foreground "gray40"))))
+ '(blank-indentation ((t (:background "gray14" :foreground "gray40"))))
+ '(blank-line ((t (:background "gray20" :foreground "gray40"))))
+ '(blank-newline ((t (:background "gray14" :foreground "gray40" :weight bold))))
+ '(blank-space ((t (:background "gray14" :foreground "gray40"))))
+ '(blank-space-after-tab ((t (:background "gray20" :foreground "gray40"))))
+ '(blank-tab ((t (:background "gray14" :foreground "gray40"))))
+ '(blank-trailing ((t (:background "gray20" :foreground "gray40" :weight bold)))))
