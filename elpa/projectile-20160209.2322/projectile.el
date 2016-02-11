@@ -4,7 +4,7 @@
 
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
-;; Package-Version: 20160206.823
+;; Package-Version: 20160209.2322
 ;; Keywords: project, convenience
 ;; Version: 0.13.0
 ;; Package-Requires: ((dash "2.11.0") (pkg-info "0.4"))
@@ -1796,8 +1796,8 @@ It assumes the test/ folder is at the same level as src/."
 
 (defun projectile-dirname-matching-count (a b)
   "Count matching dirnames ascending file paths."
-  (setq a (reverse (split-string (file-name-directory a) "/" t))
-        b (reverse (split-string (file-name-directory b) "/" t)))
+  (setq a (reverse (split-string (or (file-name-directory a) "") "/" t))
+        b (reverse (split-string (or (file-name-directory b) "") "/" t)))
   (let ((common 0))
     (while (and a b (string-equal (pop a) (pop b)))
       (setq common (1+ common)))

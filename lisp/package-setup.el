@@ -8,7 +8,6 @@
 ;;Indent-guide
 ;;Linum
 ;;Magit
-;;Mic-paren
 ;;Powerline
 ;;Projectile
 ;;Rainbow-delimiters
@@ -20,8 +19,8 @@
 ;;Web-mode
 
 ;;Auto-complete
-(ac-config-default)
-(add-to-list 'load-path "~/.emacs.d/ac-dict")
+;; (ac-config-default)
+;; (add-to-list 'load-path "~/.emacs.d/ac-dict")
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
@@ -52,6 +51,9 @@
 ;;Magit
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+
+;;Pabbrev
+(add-hook 'prog-mode-hook #'pabbrev-mode)
 
 ;;Projectile
 (projectile-global-mode)
@@ -92,6 +94,9 @@
           '(lambda ()
              (yas-minor-mode)))
 (add-to-list 'yas/root-directory "~/.emacs.d/git/yasnippet-snippets")
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "M- ") 'yas-expand)
 
 ;;Web-mode
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))

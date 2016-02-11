@@ -1,16 +1,15 @@
 ;;; smooth-scrolling.el --- Make emacs scroll smoothly
 ;;
-;; Copywrite (c) 2007-2013 Adam Spiers
+;; Copywrite (c) 2007-2011 Adamn Spiers
 ;;
 ;; Filename: smooth-scrolling.el
 ;; Description: Make emacs scroll smoothly
 ;; Author: Adam Spiers <emacs-ss@adamspiers.org>, Jeremy Bondeson <jbondeson@gmail.com>
-;; Maintainer: Adam Spiers <emacs-ss@adamspiers.org>
-;; URL: http://github.com/aspiers/smooth-scrolling/
-;; Package-Version: 20131219.2039
-;; Version: 1.0.4
+;; Maintainer: Jeremy Bondeson <jbondeson@gmail.com>
+;; URL: http://github.com/jbondeson/smooth-scrolling/
+;; Version: 1.0.1
 ;; Keywords: convenience
-;; GitHub: http://github.com/aspiers/smooth-scrolling/
+;; GitHub: http://github.com/jbondeson/smooth-scrolling/
 
 ;; This file is not part of GNU Emacs
 
@@ -82,17 +81,7 @@
 ;; debug issues with line-wrapping.
 
 ;;; Change Log:
-;; 19 Dec 2013 -- v1.0.4
-;;      * Disabled scrolling while a keyboard macro is executing in
-;;        order to prevent a premature termination of the macro by
-;;        the mode throwing an error such as "End of Buffer"
-;; 02 Jun 2013 -- v1.0.3
-;;      * Fixed Issue #3 where bounds checking was not being performed
-;;        prior to calls to 'count-lines' and 'count-screen-lines'
-;;        functions.
-;; 14 Apr 2013 -- v1.0.2
-;;      * Adam Spiers GitHub account now houses the canonical
-;;        repository.
+
 ;; 06 Dec 2011 -- v1.0.1
 ;;	* Altered structure to conform to package.el standards.
 ;;	* Restructured code to group settings changes
@@ -155,9 +144,8 @@ the point will be allowed to stray into the margin."
 relative to the top of the window.  Counting starts with 1 referring
 to the top line in the window."
   (interactive)
-  (cond ((>= (window-start) (point))
-         ;; In this case, count-screen-lines would return 0, or
-         ;; error, so we override.
+  (cond ((= (window-start) (point))
+         ;; In this case, count-screen-lines would return 0, so we override.
          1)
         (smooth-scroll-strict-margins
          (count-screen-lines (window-start) (point) 'count-final-newline))
@@ -171,14 +159,9 @@ to the top line in the window."
 between the point and the bottom of the window.  Counting starts
 with 1 referring to the bottom line in the window."
   (interactive)
-  (cond ((<= (window-end) (point))
-         ;; In this case, count-screen-lines would return 0, or
-         ;; error, so we override.
-         1)
-        (smooth-scroll-strict-margins
-         (count-screen-lines (point) (window-end)))
-        (t
-         (count-lines (point) (window-end)))))
+  (if smooth-scroll-strict-margins
+      (count-screen-lines (point) (window-end))
+    (count-lines (point) (window-end))))
 ;;;_ + after advice
 
 ;;;###autoload
@@ -191,9 +174,6 @@ lines of the top of the window."
    (let ((lines-from-window-top
           (smooth-scroll-lines-from-window-top)))
      (and
-      ;; [GitHub Issue #5] Keyboard macros execute in interactive mode so
-      ;; we need to be careful not to do anything.
-      (not executing-kbd-macro)
       ;; Only scroll down if we're within the top margin
       (<= lines-from-window-top smooth-scroll-margin)
       ;; Only scroll down if we're in the top half of the window
@@ -213,9 +193,6 @@ lines of the top of the window."
   "Scroll up smoothly if cursor is within `smooth-scroll-margin'
 lines of the bottom of the window."
   (and
-   ;; [GitHub Issue #5] Keyboard macros execute in interactive mode so
-   ;; we need to be careful not to do anything.
-   (not executing-kbd-macro)
    ;; Only scroll up if there is buffer below the end of the window.
    (< (window-end) (buffer-end 1))
    (let ((lines-from-window-bottom

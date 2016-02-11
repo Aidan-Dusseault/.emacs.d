@@ -40,6 +40,11 @@
  '(fringe-mode (quote (nil . 0)) nil (fringe))
  '(inhibit-default-init t)
  '(initial-buffer-choice t)
+ '(minimap-hide-fringes t)
+ '(minimap-highlight-line nil)
+ '(minimap-mode t)
+ '(minimap-recenter-type (quote free))
+ '(minimap-window-location (quote right))
  '(protect-buffer-bury-p nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
@@ -76,4 +81,5 @@
  '(blank-space ((t (:background "gray14" :foreground "gray40"))))
  '(blank-space-after-tab ((t (:background "gray20" :foreground "gray40"))))
  '(blank-tab ((t (:background "gray14" :foreground "gray40"))))
- '(blank-trailing ((t (:background "gray20" :foreground "gray40" :weight bold)))))
+ '(blank-trailing ((t (:background "gray20" :foreground "gray40" :weight bold))))
+ '(minimap-active-region-background ((t (:background "DarkOrange4")))))

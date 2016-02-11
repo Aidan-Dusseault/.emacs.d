@@ -121,7 +121,7 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 
-(menu-bar-mode t)
+(menu-bar-mode nil)
 
 ;; truncate even even when screen is split into multiple windows
 (setq-default truncate-partial-width-windows nil)
@@ -215,3 +215,9 @@
       (concat
        "-o ControlPath=%%C "
        "-o ControlMaster=auto -o ControlPersist=no"))
+
+;;Mouse scroll speed
+(setq mouse-wheel-scroll-amount '(5))
+
+;;Hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
