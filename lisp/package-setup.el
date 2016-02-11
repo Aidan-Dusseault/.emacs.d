@@ -1,6 +1,6 @@
 ;;Initialization and configuration for packages
 ;;Contains:
-;;Auto-complete
+;;Anzu
 ;;Emmet-mode
 ;;Flycheck
 ;;Haskell-mode
@@ -8,19 +8,21 @@
 ;;Indent-guide
 ;;Linum
 ;;Magit
+;;Mic-paren
+;;Pabbrev
 ;;Powerline
 ;;Projectile
 ;;Rainbow-delimiters
 ;;Rainbow-mode
 ;;Smartparens
+;;Sr-speedbar
 ;;Undo-tree
 ;;Uniquify
 ;;Yasnippet
 ;;Web-mode
 
-;;Auto-complete
-;; (ac-config-default)
-;; (add-to-list 'load-path "~/.emacs.d/ac-dict")
+;;Anzu
+(global-anzu-mode 1)
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
@@ -34,7 +36,6 @@
 
 ;;Ido
 (ido-mode t)
-(ido-everywhere 1)
 (ido-ubiquitous-mode 1)
 (flx-ido-mode 1)
 (setq ido-enable-flex-matching t)
@@ -52,8 +53,32 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
+;;Mic-paren
+(paren-activate)
+
 ;;Pabbrev
 (add-hook 'prog-mode-hook #'pabbrev-mode)
+(setq pabbrev-idle-timer-verbose nil)
+(defun pabbrev-suggestions-ido (suggestion-list)
+  "Use ido to display menu of all pabbrev suggestions."
+  (when suggestion-list
+    (pabbrev-suggestions-insert-word pabbrev-expand-previous-word)
+    (pabbrev-suggestions-insert-word
+     (ido-completing-read "Completions: " (mapcar 'car suggestion-list)))))
+
+(defun pabbrev-suggestions-insert-word (word)
+  "Insert word in place of current suggestion, with no attempt to kill pabbrev-buffer."
+  (let ((point))
+    (save-excursion
+      (let ((bounds (pabbrev-bounds-of-thing-at-point)))
+	(progn
+	  (delete-region (car bounds) (cdr bounds))
+	  (insert word)
+	  (setq point (point)))))
+    (if point
+	(goto-char point))))
+
+(fset 'pabbrev-suggestions-goto-buffer 'pabbrev-suggestions-ido)
 
 ;;Projectile
 (projectile-global-mode)
@@ -66,11 +91,14 @@
 
 ;;Powerline
 (if (display-graphic-p)
-    (progn
       ;; if graphic
-      (powerline-default-theme))
+    (powerline-default-theme)
   ;; else (optional)
   (powerline-vim-theme))
+;;Correct colours on osx
+(if (eq window-system 'ns)
+    (setq ns-use-srgb-colorspace nil)
+  )
 
 ;;Rainbow-delimiters
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -80,6 +108,9 @@
 
 ;;Smartparens
 (smartparens-global-mode t)
+
+;;Sr-speedbar
+(global-set-key (kbd "M-s") 'sr-speedbar-toggle)
 
 ;; Undo-tree
 (global-undo-tree-mode t)
@@ -96,7 +127,7 @@
 (add-to-list 'yas/root-directory "~/.emacs.d/git/yasnippet-snippets")
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "M- ") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "M-j") 'yas-expand)
 
 ;;Web-mode
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))

@@ -36,16 +36,38 @@
  '(custom-safe-themes
    (quote
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3b819bba57a676edf6e4881bd38c777f96d1aa3b3b5bc21d8266fa5b0d0f1ebf" default)))
+ '(ergoemacs-ctl-c-or-ctl-x-delay 0.2)
+ '(ergoemacs-handle-ctl-c-or-ctl-x (quote both))
+ '(ergoemacs-ini-mode t)
+ '(ergoemacs-keyboard-layout "us")
+ '(ergoemacs-mode nil)
+ '(ergoemacs-smart-paste nil)
+ '(ergoemacs-theme "standard")
+ '(ergoemacs-theme-options nil)
+ '(ergoemacs-use-menus t)
  '(fci-rule-color "#383838")
  '(fringe-mode (quote (nil . 0)) nil (fringe))
+ '(ido-cannot-complete-command (quote ido-next-match))
  '(inhibit-default-init t)
  '(initial-buffer-choice t)
+ '(initial-scratch-message
+   ";; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+")
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(minimap-mode t)
  '(minimap-recenter-type (quote free))
  '(minimap-window-location (quote right))
+ '(powerline-default-separator (quote slant))
  '(protect-buffer-bury-p nil)
+ '(recentf-menu-before "Open File...")
+ '(scroll-error-top-bottom nil)
+ '(set-mark-command-repeat-pop nil)
+ '(shift-select-mode t)
+ '(sr-speedbar-right-side nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
@@ -73,6 +95,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(anzu-mode-line ((t (:foreground "DarkOrange3" :weight bold))))
  '(blank-empty ((t nil)))
  '(blank-hspace ((t (:background "grey24" :foreground "gray40"))))
  '(blank-indentation ((t (:background "gray14" :foreground "gray40"))))
@@ -82,4 +105,5 @@
  '(blank-space-after-tab ((t (:background "gray20" :foreground "gray40"))))
  '(blank-tab ((t (:background "gray14" :foreground "gray40"))))
  '(blank-trailing ((t (:background "gray20" :foreground "gray40" :weight bold))))
- '(minimap-active-region-background ((t (:background "DarkOrange4")))))
+ '(minimap-active-region-background ((t (:background "DarkOrange4"))))
+ '(paren-face-match ((t (:background "CadetBlue4" :foreground "white")))))

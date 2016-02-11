@@ -48,8 +48,6 @@
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
 
-(menu-bar-mode t)
-
 ;; truncate even even when screen is split into multiple windows
 (setq-default truncate-partial-width-windows nil)
  
@@ -195,20 +193,19 @@
   (scroll-bar-mode -1)
 )
 
-;; Custom keybinds
+;; Custom keybindings
 (global-set-key (kbd "C-j") 'goto-line)
-(global-set-key (kbd "C-/") 'undo)
-
-;;Highligh parentheses
-(add-hook 'prog-mode-hook #'show-paren-mode)
-
-;;Disable built in scroll
-(setq auto-window-vscroll nil)
-
 (global-set-key "\M-n" 'scroll-up-line)
 (global-set-key "\M-p" 'scroll-down-line)
 (global-set-key (kbd "C-o") 'universal-argument)
 (global-set-key (kbd "C-u") 'undo)
+(global-set-key (kbd "C-M-<backspace>") 'kill-whole-line)
+
+;;Highligh parentheses
+;; (add-hook 'prog-mode-hook #'show-paren-mode)
+
+;;Disable built in scroll
+(setq auto-window-vscroll nil)
 
 ;;Tramp ssh for Unix sockets
 (setq tramp-ssh-controlmaster-options
@@ -221,3 +218,10 @@
 
 ;;Hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;;Code folding
+(defun toggle-selective-display (column)
+  (interactive "P")
+  (set-selective-display 
+   (if selective-display nil (or column 1))))
+(global-set-key (kbd "M-.") 'toggle-selective-display)
