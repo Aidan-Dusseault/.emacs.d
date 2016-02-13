@@ -10,15 +10,15 @@
 (setq ns-pop-up-frames nil)
 
 ;;Killring completion
-(defun konix/kill-ring-insert ()
-  (interactive)
-  (let ((to_insert (completing-read "Yank : "
-                                    (delete-duplicates kill-ring :test #'equal))))
-    (when (and to_insert (region-active-p))
-      ;; the currently highlighted section is to be replaced by the yank
-      (delete-region (region-beginning) (region-end)))
-    (insert to_insert)))
-(global-set-key "\M-y" 'konix/kill-ring-insert)
+;; (defun konix/kill-ring-insert ()
+;;   (interactive)
+;;   (let ((to_insert (completing-read "Yank : "
+;;                                     (delete-duplicates kill-ring :test #'equal))))
+;;     (when (and to_insert (region-active-p))
+;;       ;; the currently highlighted section is to be replaced by the yank
+;;       (delete-region (region-beginning) (region-end)))
+;;     (insert to_insert)))
+;; (global-set-key "\M-y" 'konix/kill-ring-insert)
 
 ;; set default directory
 (setq default-directory "~/")
@@ -72,6 +72,7 @@
 ;;Initialization and configuration of variables
 
 ;; Set the starting position and width and height of Emacs Window
+(setq frame-resize-pixelwise t)
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 ;;silence beeping
@@ -225,3 +226,11 @@
   (set-selective-display 
    (if selective-display nil (or column 1))))
 (global-set-key (kbd "M-.") 'toggle-selective-display)
+
+;;Make directories when using find-file
+(defadvice find-file (before make-directory-maybe (filename &optional wildcards) activate)
+  "Create parent directory if not exists while visiting file."
+  (unless (file-exists-p filename)
+    (let ((dir (file-name-directory filename)))
+      (unless (file-exists-p dir)
+        (make-directory dir)))))

@@ -9,6 +9,7 @@
 ;;Linum
 ;;Magit
 ;;Mic-paren
+;;Multi-term
 ;;Pabbrev
 ;;Powerline
 ;;Projectile
@@ -40,6 +41,7 @@
 (flx-ido-mode 1)
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
+(setq ido-use-virtual-buffers t)
 
 ;;Indent-guide
 (add-hook 'prog-mode-hook #'indent-guide-mode)
@@ -47,7 +49,7 @@
 
 ;; Line numbering
 (add-hook 'prog-mode-hook #'linum-mode)
-(setq linum-format "%2d \u2502 ")
+(setq linum-format "%d ")
 
 ;;Magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -55,6 +57,9 @@
 
 ;;Mic-paren
 (paren-activate)
+
+;;Multi-term
+(setq multi-term-program "/bin/bash")
 
 ;;Pabbrev
 (add-hook 'prog-mode-hook #'pabbrev-mode)

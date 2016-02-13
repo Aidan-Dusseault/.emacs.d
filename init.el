@@ -56,6 +56,7 @@
 ;; then enter the text in that file's own buffer.
 
 ")
+ '(linum-format "%d ")
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(minimap-mode t)
@@ -105,5 +106,7 @@
  '(blank-space-after-tab ((t (:background "gray20" :foreground "gray40"))))
  '(blank-tab ((t (:background "gray14" :foreground "gray40"))))
  '(blank-trailing ((t (:background "gray20" :foreground "gray40" :weight bold))))
+ '(isearch ((t (:background "green4" :foreground "white"))))
+ '(isearch-fail ((t (:background "red4"))))
  '(minimap-active-region-background ((t (:background "DarkOrange4"))))
  '(paren-face-match ((t (:background "CadetBlue4" :foreground "white")))))
