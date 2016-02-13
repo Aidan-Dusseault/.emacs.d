@@ -60,6 +60,13 @@
 
 ;;Multi-term
 (setq multi-term-program "/bin/bash")
+(defun multi-term-toggle-switch ()
+  (interactive)
+  (multi-term-dedicated-toggle)
+  (if (multi-term-dedicated-exist-p)
+      (multi-term-dedicated-select))
+  )
+(global-set-key (kbd "M-'") 'multi-term-toggle-switch)
 
 ;;Pabbrev
 (require 'pabbrev)
