@@ -62,6 +62,7 @@
 (setq multi-term-program "/bin/bash")
 
 ;;Pabbrev
+(require 'pabbrev)
 (add-hook 'prog-mode-hook #'pabbrev-mode)
 (setq pabbrev-idle-timer-verbose nil)
 (defun pabbrev-suggestions-ido (suggestion-list)
