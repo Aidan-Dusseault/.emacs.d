@@ -27,10 +27,10 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
-(define-key ac-completing-map (kbd "M-k") 'ac-next)
-(define-key ac-completing-map (kbd "M-i") 'ac-previous)
+(define-key ac-completing-map (kbd "A-K") 'ac-next)
+(define-key ac-completing-map (kbd "A-I") 'ac-previous)
 (define-key ac-mode-map (kbd "A-h") 'auto-complete)
-(define-key ac-menu-map (kbd "A-H") 'ac-isearch)
+(define-key ac-completing-map (kbd "A-H") 'ac-isearch)
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
