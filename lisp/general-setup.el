@@ -1,24 +1,33 @@
 ;;Initialization and configuration of variables
 
-;; Set the starting position and width and height of Emacs Window
-;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-
 ;;silence beeping
 (setq ring-bell-function #'ignore)
+
+;;Mac specific
+(when (eq system-type 'darwin)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'alt)
+  (global-set-key [kp-delete] 'delete-char) ;; sets fn-delete to be right-delete
+  )
+
+;;Windows specific
+(when (eq system-type 'ms-dos)
+  (setq w32-pass-lwindow-to-system nil)
+  (setq w32-lwindow-modifier 'meta) ; Left Windows key
+  )
 
 ;;No new frames
 (setq ns-pop-up-frames nil)
 
 ;;Killring completion
-;; (defun konix/kill-ring-insert ()
-;;   (interactive)
-;;   (let ((to_insert (completing-read "Yank : "
-;;                                     (delete-duplicates kill-ring :test #'equal))))
-;;     (when (and to_insert (region-active-p))
-;;       ;; the currently highlighted section is to be replaced by the yank
-;;       (delete-region (region-beginning) (region-end)))
-;;     (insert to_insert)))
-;; (global-set-key "\M-y" 'konix/kill-ring-insert)
+(defun select-kill-ring-insert ()
+  (interactive)
+  (let ((to_insert (completing-read "Yank : "
+                                    (delete-duplicates kill-ring :test #'equal))))
+    (when (and to_insert (region-active-p))
+      ;; the currently highlighted section is to be replaced by the yank
+      (delete-region (region-beginning) (region-end)))
+    (insert to_insert)))
 
 ;; set default directory
 (setq default-directory "~/")
@@ -37,7 +46,7 @@
  
 ;; Use windmove bindings
 ;; Navigate between windows using Alt-1, Alt-2, Shift-left, shift-up, shift-right
-(windmove-default-keybindings) 
+(windmove-default-keybindings)
 
 ;; Display continuous lines
 (setq-default truncate-lines nil)
@@ -69,7 +78,6 @@
 ;; colored shell commands
 (add-hook 'term-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-;;Initialization and configuration of variables
 
 ;; Set the starting position and width and height of Emacs Window
 (setq frame-resize-pixelwise t)
@@ -95,8 +103,8 @@
 ;; set default directory
 (setq default-directory "~/")
 
-                                        ;better mouse scrolling
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+;better mouse scrolling
+(setq mouse-wheel-scroll-amount '(5 ((shift) . 5) ((control) . nil)))
 (setq mouse-wheel-progressive-speed nil)
 
 ;; To get rid of Weird color escape sequences in Emacs.
@@ -119,6 +127,7 @@
 (setq tab-width 4)
 (defvaralias 'c-basic-offset 'tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
+
 
 (menu-bar-mode nil)
 
@@ -192,18 +201,72 @@
 (when (display-graphic-p)
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
-)
+  )
+
+;;Disable shift selection
+(setq shift-select-mode nil)
+
+;;Scroll multiple lines
+(defun scroll-down-multi-line ()
+  (interactive)
+  (dotimes (number 10)
+    (scroll-down-line))
+  )
+
+(defun scroll-up-multi-line ()
+  (interactive)
+  (dotimes (number 10)
+    (scroll-up-line))
+  )
 
 ;; Custom keybindings
-(global-set-key (kbd "C-j") 'goto-line)
-(global-set-key "\M-n" 'scroll-up-line)
-(global-set-key "\M-p" 'scroll-down-line)
-(global-set-key (kbd "C-o") 'universal-argument)
-(global-set-key (kbd "C-u") 'undo)
-(global-set-key (kbd "C-M-<backspace>") 'kill-whole-line)
-
-;;Highligh parentheses
-;; (add-hook 'prog-mode-hook #'show-paren-mode)
+(global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "A-<backspace>") 'backward-kill-word)
+(global-set-key (kbd "A-S-<backspace>") 'kill-whole-line)
+(global-set-key (kbd "A-<return>") 'set-mark-command)
+(global-set-key (kbd "A-j") 'backward-char)
+(global-set-key (kbd "A-J") 'backward-word)
+(global-set-key (kbd "A-l") 'forward-char)
+(global-set-key (kbd "A-L") 'forward-word)
+(define-key key-translation-map (kbd "A-i") (kbd "C-p"))
+(global-set-key (kbd "A-I") 'scroll-down-multi-line)
+(define-key key-translation-map (kbd "A-k") (kbd "C-n"))
+(global-set-key (kbd "A-K") 'scroll-up-multi-line)
+(define-key key-translation-map (kbd "A-u") (kbd "C-a"))
+(define-key key-translation-map (kbd "A-U") (kbd "M-<"))
+(define-key key-translation-map (kbd "A-o") (kbd "C-e"))
+(define-key key-translation-map (kbd "A-O") (kbd "M->"))
+(define-key key-translation-map (kbd "A-n") (kbd "C-s"))
+(define-key key-translation-map (kbd "A-N") (kbd "C-r"))
+(global-set-key (kbd "A-;") 'goto-line)
+(global-set-key (kbd "A-:") 'move-to-column)
+(global-set-key (kbd "A-z") 'undo)
+(global-set-key (kbd "A-Z") 'redo)
+(global-set-key (kbd "M-z") 'undo-tree-visualize)
+(global-set-key (kbd "A-x") 'kill-region)
+(global-set-key (kbd "A-c") 'copy-region-as-kill)
+(global-set-key (kbd "A-v") 'yank)
+(global-set-key (kbd "A-V") 'select-kill-ring-insert)
+(global-set-key (kbd "A-a") 'mark-whole-buffer)
+(global-set-key (kbd "A-s") 'save-buffer)
+(global-set-key (kbd "A-S") 'write-file)
+(global-set-key (kbd "A-q") 'keyboard-escape-quit)
+(global-set-key (kbd "A-Q") 'top-level)
+(define-key key-translation-map (kbd "A-w") (kbd "TAB"))
+(global-set-key (kbd "A-d") 'set-mark-command)
+(define-key key-translation-map (kbd "A-e") (kbd "M-x"))
+(define-key key-translation-map (kbd "A-b") (kbd "C-x b"))
+(define-key key-translation-map (kbd "A-f") (kbd "C-x C-f"))
+(define-key key-translation-map (kbd "A-0") (kbd "C-0"))
+(define-key key-translation-map (kbd "A-1") (kbd "C-1"))
+(define-key key-translation-map (kbd "A-2") (kbd "C-2"))
+(define-key key-translation-map (kbd "A-3") (kbd "C-3"))
+(define-key key-translation-map (kbd "A-4") (kbd "C-4"))
+(define-key key-translation-map (kbd "A-5") (kbd "C-5"))
+(define-key key-translation-map (kbd "A-6") (kbd "C-6"))
+(define-key key-translation-map (kbd "A-7") (kbd "C-7"))
+(define-key key-translation-map (kbd "A-8") (kbd "C-8"))
+(define-key key-translation-map (kbd "A-9") (kbd "C-9"))
 
 ;;Disable built in scroll
 (setq auto-window-vscroll nil)
@@ -213,12 +276,6 @@
       (concat
        "-o ControlPath=%%C "
        "-o ControlMaster=auto -o ControlPersist=no"))
-
-;;Mouse scroll speed
-(setq mouse-wheel-scroll-amount '(5))
-
-;;Hippie-expand
-(global-set-key (kbd "M-/") 'hippie-expand)
 
 ;;Code folding
 (defun toggle-selective-display (column)

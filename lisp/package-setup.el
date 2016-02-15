@@ -1,10 +1,9 @@
 ;;Initialization and configuration for packages
 ;;Contains:
-;;Anzu
+;;Auto-complete
 ;;Emmet-mode
 ;;Flycheck
 ;;Haskell-mode
-;;Ido
 ;;Indent-guide
 ;;Linum
 ;;Magit
@@ -16,14 +15,22 @@
 ;;Rainbow-delimiters
 ;;Rainbow-mode
 ;;Smartparens
+;;Swiper
 ;;Sr-speedbar
 ;;Undo-tree
 ;;Uniquify
 ;;Yasnippet
 ;;Web-mode
 
-;;Anzu
-(global-anzu-mode 1)
+
+;;Auto-complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+(define-key ac-completing-map (kbd "M-k") 'ac-next)
+(define-key ac-completing-map (kbd "M-i") 'ac-previous)
+(define-key ac-mode-map (kbd "A-h") 'auto-complete)
+(define-key ac-menu-map (kbd "A-H") 'ac-isearch)
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
@@ -34,14 +41,6 @@
 
 ;;Haskell-mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-
-;;Ido
-(ido-mode t)
-(ido-ubiquitous-mode 1)
-(flx-ido-mode 1)
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
-(setq ido-use-virtual-buffers t)
 
 ;;Indent-guide
 (add-hook 'prog-mode-hook #'indent-guide-mode)
@@ -67,31 +66,32 @@
       (multi-term-dedicated-select))
   )
 (global-set-key (kbd "M-'") 'multi-term-toggle-switch)
+(global-set-key (kbd "A-'") 'multi-term-toggle-switch)
 
 ;;Pabbrev
-(require 'pabbrev)
-(add-hook 'prog-mode-hook #'pabbrev-mode)
-(setq pabbrev-idle-timer-verbose nil)
-(defun pabbrev-suggestions-ido (suggestion-list)
-  "Use ido to display menu of all pabbrev suggestions."
-  (when suggestion-list
-    (pabbrev-suggestions-insert-word pabbrev-expand-previous-word)
-    (pabbrev-suggestions-insert-word
-     (ido-completing-read "Completions: " (mapcar 'car suggestion-list)))))
+;; (require 'pabbrev)
+;; (add-hook 'prog-mode-hook #'pabbrev-mode)
+;; (setq pabbrev-idle-timer-verbose nil)
+;; (defun pabbrev-suggestions-ivy (suggestion-list)
+;;   "Use ivy to display menu of all pabbrev suggestions."
+;;   (when suggestion-list
+;;     (pabbrev-suggestions-insert-word pabbrev-expand-previous-word)
+;;     (pabbrev-suggestions-insert-word
+;;      (ivy-completing-read "Completions: " (mapcar 'car suggestion-list)))))
 
-(defun pabbrev-suggestions-insert-word (word)
-  "Insert word in place of current suggestion, with no attempt to kill pabbrev-buffer."
-  (let ((point))
-    (save-excursion
-      (let ((bounds (pabbrev-bounds-of-thing-at-point)))
-	(progn
-	  (delete-region (car bounds) (cdr bounds))
-	  (insert word)
-	  (setq point (point)))))
-    (if point
-	(goto-char point))))
+;; (defun pabbrev-suggestions-insert-word (word)
+;;   "Insert word in place of current suggestion, with no attempt to kill pabbrev-buffer."
+;;   (let ((point))
+;;     (save-excursion
+;;       (let ((bounds (pabbrev-bounds-of-thing-at-point)))
+;; 	(progn
+;; 	  (delete-region (car bounds) (cdr bounds))
+;; 	  (insert word)
+;; 	  (setq point (point)))))
+;;     (if point
+;; 	(goto-char point))))
 
-(fset 'pabbrev-suggestions-goto-buffer 'pabbrev-suggestions-ido)
+;; (fset 'pabbrev-suggestions-goto-buffer 'pabbrev-suggestions-ivy)
 
 ;;Projectile
 (projectile-global-mode)
@@ -121,6 +121,21 @@
 
 ;;Smartparens
 (smartparens-global-mode t)
+
+;;Swiper
+(require 'ivy)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-height 10)
+(setq ivy-count-format "(%d/%d) ")
+(setq ivy-re-builders-alist
+      '((t . ivy--regex-plus)))
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "C-j") 'ivy-done)
+(define-key key-translation-map (kbd "A-n") (kbd "C-s"))
+(define-key key-translation-map (kbd "A-N") (kbd "C-r"))
 
 ;;Sr-speedbar
 (global-set-key (kbd "M-s") 'sr-speedbar-toggle)
