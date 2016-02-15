@@ -62,7 +62,7 @@
   (setq multi-term-program "/bin/bash")
   )
 (when (eq system-type 'ms-dos)
-  (setq multi-term-program "D:/Program Files/Git/git-bash.exe")
+  (setq multi-term-program "/bin/cmdproxy.exe")
   )
 (defun multi-term-toggle-switch ()
   (interactive)
