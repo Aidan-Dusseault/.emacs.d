@@ -62,7 +62,7 @@
   (setq multi-term-program "/bin/bash")
   )
 (when (eq system-type 'ms-dos)
-  (setq multi-term-program "/bin/cmdproxy.exe")
+  (setq multi-term-program "/cmdproxy.exe")
   )
 (defun multi-term-toggle-switch ()
   (interactive)
