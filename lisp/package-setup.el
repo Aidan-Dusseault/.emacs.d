@@ -1,7 +1,6 @@
 ;;Initialization and configuration for packages
 ;;Contains:
 ;;Auto-complete
-;;Cygwin
 ;;Emmet-mode
 ;;Flycheck
 ;;Haskell-mode
@@ -33,11 +32,6 @@
 (define-key ac-mode-map (kbd "A-h") 'auto-complete)
 (define-key ac-completing-map (kbd "A-H") 'ac-isearch)
 
-;;Cygwin
-(when (eq system-type 'ms-dos)
-  (set-shell-bash)
-  )
-
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  #'emmet-mode) ;; enable Emmet's css abbreviation.
@@ -65,35 +59,13 @@
 
 ;;Multi-term
 (setq multi-term-program "/bin/bash")
+(when (eq system-type 'ms-dos)
+  (setq multi-term-program "SHELL")
+  )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
 (global-set-key (kbd "A-'") 'multi-term-dedicated-toggle)
-
-;;Pabbrev
-;; (require 'pabbrev)
-;; (add-hook 'prog-mode-hook #'pabbrev-mode)
-;; (setq pabbrev-idle-timer-verbose nil)
-;; (defun pabbrev-suggestions-ivy (suggestion-list)
-;;   "Use ivy to display menu of all pabbrev suggestions."
-;;   (when suggestion-list
-;;     (pabbrev-suggestions-insert-word pabbrev-expand-previous-word)
-;;     (pabbrev-suggestions-insert-word
-;;      (ivy-completing-read "Completions: " (mapcar 'car suggestion-list)))))
-
-;; (defun pabbrev-suggestions-insert-word (word)
-;;   "Insert word in place of current suggestion, with no attempt to kill pabbrev-buffer."
-;;   (let ((point))
-;;     (save-excursion
-;;       (let ((bounds (pabbrev-bounds-of-thing-at-point)))
-;; 	(progn
-;; 	  (delete-region (car bounds) (cdr bounds))
-;; 	  (insert word)
-;; 	  (setq point (point)))))
-;;     (if point
-;; 	(goto-char point))))
-
-;; (fset 'pabbrev-suggestions-goto-buffer 'pabbrev-suggestions-ivy)
 
 ;;Projectile
 (projectile-global-mode)

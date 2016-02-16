@@ -223,7 +223,7 @@
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "A-<backspace>") 'backward-kill-word)
 (global-set-key (kbd "A-S-<backspace>") 'kill-whole-line)
-(define-key key-translation-map (kbd "A-<return>") (kbd "<return>"))
+(define-key key-translation-map (kbd "A-<return>") (kbd "RET"))
 (global-set-key (kbd "A-j") 'backward-char)
 (global-set-key (kbd "A-J") 'backward-word)
 (global-set-key (kbd "A-l") 'forward-char)
