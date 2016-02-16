@@ -58,9 +58,12 @@
 (paren-activate)
 
 ;;Multi-term
-(setq multi-term-program "/bin/bash")
+(when (eq system-type 'ms-dos)
+  (require 'setup-cygwin)
+  )
 (if (not (eq system-type 'ms-dos))
-    (setq multi-term-program "C:/cygwin64/bin/bash")
+    (setq multi-term-program "/bin/bash")
+  (setq multi-term-program shell-file-name)
     )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
