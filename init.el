@@ -58,7 +58,6 @@
  '(recentf-menu-before "Open File...")
  '(scroll-error-top-bottom nil)
  '(set-mark-command-repeat-pop nil)
- '(shift-select-mode t)
  '(sr-speedbar-right-side nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map

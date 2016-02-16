@@ -1,5 +1,8 @@
 ;;Initialization and configuration of variables
 
+;;Start server
+(server-start)
+
 ;;silence beeping
 (setq ring-bell-function #'ignore)
 
