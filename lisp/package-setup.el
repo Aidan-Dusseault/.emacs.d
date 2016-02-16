@@ -58,20 +58,11 @@
 (paren-activate)
 
 ;;Multi-term
-(when (eq system-type 'darwin)
-  (setq multi-term-program "/bin/bash")
-  )
-(when (eq system-type 'ms-dos)
-  (setq multi-term-program "/cmdproxy.exe")
-  )
-(defun multi-term-toggle-switch ()
-  (interactive)
-  (multi-term-dedicated-toggle)
-  (if (multi-term-dedicated-exist-p)
-      (multi-term-dedicated-select))
-  )
-(global-set-key (kbd "M-'") 'multi-term-toggle-switch)
-(global-set-key (kbd "A-'") 'multi-term-toggle-switch)
+(setq multi-term-program "/bin/bash")
+(setq multi-term-dedicated-select-after-open-p t)
+(setq multi-term-dedicated-close-back-to-open-buffer-p t)
+(global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
+(global-set-key (kbd "A-'") 'multi-term-dedicated-toggle)
 
 ;;Pabbrev
 ;; (require 'pabbrev)
