@@ -1,6 +1,7 @@
 ;;Initialization and configuration for packages
 ;;Contains:
 ;;Auto-complete
+;;Cygwin
 ;;Emmet-mode
 ;;Flycheck
 ;;Haskell-mode
@@ -32,6 +33,12 @@
 (define-key ac-mode-map (kbd "A-h") 'auto-complete)
 (define-key ac-completing-map (kbd "A-H") 'ac-isearch)
 
+;;Cygwin
+(when (eq system-type 'ms-dos)
+  (cygwin-mount-activate)
+  (load-library 'setup-cygwin)
+  )
+
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
 (add-hook 'css-mode-hook  #'emmet-mode) ;; enable Emmet's css abbreviation.
@@ -58,10 +65,7 @@
 (paren-activate)
 
 ;;Multi-term
-(when (eq system-type 'ms-dos)
-  (require 'setup-cygwin)
-  )
-(if (not (eq system-type 'ms-dos))
+(if (not (eq system-type 'windows-nt))
     (setq multi-term-program "/bin/bash")
   (setq multi-term-program shell-file-name)
     )

@@ -11,7 +11,7 @@
   )
 
 ;;Windows specific
-(when (eq system-type 'ms-dos)
+(when (eq system-type 'windows-nt)
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-lwindow-modifier 'meta) ; Left Windows key
   )
