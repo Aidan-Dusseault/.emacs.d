@@ -35,6 +35,7 @@
 
 ;;Cygwin
 (when (eq system-type 'windows-nt)
+  (require 'cygwin-mount)
   (cygwin-mount-activate)
   (load-library 'setup-cygwin)
   )
