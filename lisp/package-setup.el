@@ -58,8 +58,8 @@
 (paren-activate)
 
 ;;Multi-term
-(if (eq system-type 'ms-dos)
-    (setq multi-term-program (getenv "TERM"))
+(if (not (eq system-type 'ms-dos))
+    (setq multi-term-program "C:/cygwin64/bin/bash")
     )
 (setq multi-term-program "/bin/bash")
 (setq multi-term-dedicated-select-after-open-p t)
