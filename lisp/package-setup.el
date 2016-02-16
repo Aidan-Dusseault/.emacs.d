@@ -65,6 +65,7 @@
 (paren-activate)
 
 ;;Multi-term
+;;Test comment
 (if (not (eq system-type 'windows-nt))
     (setq multi-term-program "/bin/bash")
   (setq multi-term-program shell-file-name)
