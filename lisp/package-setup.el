@@ -1,6 +1,7 @@
 ;;Initialization and configuration for packages
 ;;Contains:
 ;;Auto-complete
+;;Cygwin
 ;;Emmet-mode
 ;;Flycheck
 ;;Haskell-mode
@@ -31,6 +32,11 @@
 (define-key ac-completing-map (kbd "A-I") 'ac-previous)
 (define-key ac-mode-map (kbd "A-h") 'auto-complete)
 (define-key ac-completing-map (kbd "A-H") 'ac-isearch)
+
+;;Cygwin
+(when (eq system-type 'ms-dos)
+  (set-shell-bash)
+  )
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
