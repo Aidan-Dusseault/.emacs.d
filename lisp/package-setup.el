@@ -58,10 +58,10 @@
 (paren-activate)
 
 ;;Multi-term
+(if (not (eq system-type 'ms-dos))
+    (setq multi-term-program "/bin/bash")
+    )
 (setq multi-term-program "/bin/bash")
-(when (eq system-type 'ms-dos)
-  (setq multi-term-program "SHELL")
-  )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
