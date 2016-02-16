@@ -34,7 +34,7 @@
 (define-key ac-completing-map (kbd "A-H") 'ac-isearch)
 
 ;;Cygwin
-(when (eq system-type 'ms-dos)
+(when (eq system-type 'windows-nt)
   (cygwin-mount-activate)
   (load-library 'setup-cygwin)
   )
@@ -65,7 +65,6 @@
 (paren-activate)
 
 ;;Multi-term
-;;Test comment
 (if (not (eq system-type 'windows-nt))
     (setq multi-term-program "/bin/bash")
   (setq multi-term-program shell-file-name)
