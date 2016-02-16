@@ -58,35 +58,34 @@
 (paren-activate)
 
 ;;Multi-term
+(require 'multi-term)
 (if (not (eq system-type 'windows-nt))
     (setq multi-term-program "/bin/bash")
   (defun multi-term-get-buffer (&optional special-shell dedicated-window)
-    "Get term buffer.
-If option SPECIAL-SHELL is `non-nil', will use shell from user input.
-If option DEDICATED-WINDOW is `non-nil' will create dedicated `multi-term' window ."
-    (with-temp-buffer
-      (let ((shell-name (or multi-term-program ;shell name
-                            (getenv "SHELL")
-                            (getenv "ESHELL")
-                            "/bin/sh"))
-            (index 1)                     ;setup new term index
-            term-name)                    ;term name
-        (if dedicated-window
-            (setq term-name multi-term-dedicated-buffer-name)
-          ;; Compute index.
-          (while (buffer-live-p (get-buffer (format "*%s<%s>*" multi-term-buffer-name index)))
-            (setq index (1+ index)))
-          ;; switch to current local directory,
-          ;; if in-existence, switch to `multi-term-default-dir'.
-          (cd (or default-directory (expand-file-name multi-term-default-dir)))
-          ;; adjust value N when max index of term buffer is less than length of term list
-          (setq term-name (format "%s<%s>" multi-term-buffer-name index)))
-        ;; Try get other shell name if `special-shell' is non-nil.
-        (if special-shell
-            (setq shell-name (read-from-minibuffer "Run program: " shell-name)))
-        ;; Make term, details to see function `make-term' in `term.el'.
-        (shell (concat "*" term-name "*")))))
-    )
+  "Overwrite multi-term-get-buffer for windows to run shell instead"
+  (with-temp-buffer
+    (let ((shell-name (or multi-term-program ;shell name
+                          (getenv "SHELL")
+                          (getenv "ESHELL")
+                          "/bin/sh"))
+          (index 1)                     ;setup new term index
+          term-name)                    ;term name
+      (if dedicated-window
+          (setq term-name multi-term-dedicated-buffer-name)
+        ;; Compute index.
+        (while (buffer-live-p (get-buffer (format "*%s<%s>*" multi-term-buffer-name index)))
+          (setq index (1+ index)))
+        ;; switch to current local directory,
+        ;; if in-existence, switch to `multi-term-default-dir'.
+        (cd (or default-directory (expand-file-name multi-term-default-dir)))
+        ;; adjust value N when max index of term buffer is less than length of term list
+        (setq term-name (format "%s<%s>" multi-term-buffer-name index)))
+      ;; Try get other shell name if `special-shell' is non-nil.
+      (if special-shell
+          (setq shell-name (read-from-minibuffer "Run program: " shell-name)))
+      ;; Make term, details to see function `make-term' in `term.el'.
+      (shell (concat "*" term-name "*")))))
+  )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
