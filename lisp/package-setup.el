@@ -51,15 +51,15 @@
 (setq linum-format "%d ")
 
 ;;Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+(global-set-key (kbd "A-g") 'magit-status)
+(global-set-key (kbd "A-G") 'magit-dispatch-popup)
 
 ;;Mic-paren
 (paren-activate)
 
 ;;Multi-term
-(if (not (eq system-type 'ms-dos))
-    (setq multi-term-program "/bin/bash")
+(if (eq system-type 'ms-dos)
+    (setq multi-term-program (getenv "TERM"))
     )
 (setq multi-term-program "/bin/bash")
 (setq multi-term-dedicated-select-after-open-p t)
