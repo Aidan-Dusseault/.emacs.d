@@ -58,12 +58,8 @@
 (paren-activate)
 
 (require 'multi-term)
-;; (if (not (eq system-type 'windows-nt))
-;;     (setq multi-term-program "/bin/bash")
 (defun multi-term-get-buffer (&optional special-shell dedicated-window)
-  "Get term buffer.
-If option SPECIAL-SHELL is `non-nil', will use shell from user input.
-If option DEDICATED-WINDOW is `non-nil' will create dedicated `multi-term' window ."
+  "Overwrite multi-term-get-buffer to provide a shell environment"
   (with-temp-buffer
     (let ((shell-name (or multi-term-program ;shell name
                           (getenv "SHELL")
@@ -84,11 +80,10 @@ If option DEDICATED-WINDOW is `non-nil' will create dedicated `multi-term' windo
       ;; Try get other shell name if `special-shell' is non-nil.
       (if special-shell
           (setq shell-name (read-from-minibuffer "Run program: " shell-name)))
-      ;; Make term, details to see function `make-term' in `term.el'.
+      ;; Create the buffer for a shell to go into
       (get-buffer-create (concat "*" term-name "*")))))
 (defun multi-term-dedicated-open ()
-  "Open dedicated `multi-term' window.
-Will prompt you shell name when you type `C-u' before this command."
+  "Overwrite multi-term-dedicated-open to provide a shell interface"
   (interactive)
   (if (not (multi-term-dedicated-exist-p))
       (let ((current-window (selected-window)))
@@ -112,9 +107,9 @@ Will prompt you shell name when you type `C-u' before this command."
              multi-term-dedicated-window
            ;; Otherwise focus current window.
            current-window))
+        ;; Open the shell interface in the current window
         (shell (concat "*" multi-term-dedicated-buffer-name "*")))
     (message "`multi-term' dedicated window has exist.")))
-  ;; )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
