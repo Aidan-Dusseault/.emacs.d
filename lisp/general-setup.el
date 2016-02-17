@@ -172,6 +172,30 @@
 
 ;;Don't use pager in shell
 (setenv "PAGER" "cat")
+(setenv "EDITOR" "emacsclient -n -a ''")
+
+;;Clear command in shell
+(setq comint-input-sender 'n-shell-simple-send)
+(defun n-shell-simple-send (proc command)
+  "17Jan02 - sailor. Various commands pre-processing before sending to shell."
+  (cond
+   ;; Checking for clear command and execute it.
+   ((string-match "^[ \t]*clear[ \t]*$" command)
+    (comint-send-string proc "\n")
+    (erase-buffer)
+    )
+   ;; Checking for man command and execute it.
+   ((string-match "^[ \t]*man[ \t]*" command)
+    (comint-send-string proc "\n")
+    (setq command (replace-regexp-in-string "^[ \t]*man[ \t]*" "" command))
+    (setq command (replace-regexp-in-string "[ \t]+$" "" command))
+    ;;(message (format "command %s command" command))
+    (funcall 'man command)
+    )
+   ;; Send other commands to the default handler.
+   (t (comint-simple-send proc command))
+   )
+  )
 
 ;;persistency
 ;;save the place in files
@@ -224,6 +248,8 @@
 
 ;; Custom keybindings
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "M-i") 'scroll-down-multi-line)
+(global-set-key (kbd "M-k") 'scroll-up-multi-line)
 (global-set-key (kbd "A-<backspace>") 'backward-kill-word)
 (global-set-key (kbd "A-S-<backspace>") 'kill-whole-line)
 (define-key key-translation-map (kbd "A-<return>") (kbd "RET"))
@@ -232,8 +258,8 @@
 (global-set-key (kbd "A-l") 'forward-char)
 (global-set-key (kbd "A-L") 'forward-word)
 (define-key key-translation-map (kbd "A-i") (kbd "C-p"))
-(global-set-key (kbd "A-I") 'scroll-down-multi-line)
-(define-key key-translation-map (kbd "A-k") (kbd "C-n"))
+(define-key key-translation-map (kbd "A-I") (kbd "M-p"))
+(define-key key-translation-map (kbd "A-K") (kbd "M-n"))
 (global-set-key (kbd "A-K") 'scroll-up-multi-line)
 (define-key key-translation-map (kbd "A-u") (kbd "C-a"))
 (define-key key-translation-map (kbd "A-U") (kbd "M-<"))
@@ -255,7 +281,7 @@
 (global-set-key (kbd "A-S") 'write-file)
 (global-set-key (kbd "A-q") 'keyboard-escape-quit)
 (define-key key-translation-map (kbd "A-w") (kbd "TAB"))
-(global-set-key (kbd "A-d") 'set-mark-command)
+(global-set-key (kbd "A-p") 'set-mark-command)
 (define-key key-translation-map (kbd "A-e") (kbd "M-x"))
 (define-key key-translation-map (kbd "A-b") (kbd "C-x b"))
 (global-set-key (kbd "A-B") 'kill-buffer)

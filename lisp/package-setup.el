@@ -57,12 +57,13 @@
 ;;Mic-paren
 (paren-activate)
 
-;;Multi-term
 (require 'multi-term)
-(if (not (eq system-type 'windows-nt))
-    (setq multi-term-program "/bin/bash")
-  (defun multi-term-get-buffer (&optional special-shell dedicated-window)
-  "Overwrite multi-term-get-buffer for windows to run shell instead"
+;; (if (not (eq system-type 'windows-nt))
+;;     (setq multi-term-program "/bin/bash")
+(defun multi-term-get-buffer (&optional special-shell dedicated-window)
+  "Get term buffer.
+If option SPECIAL-SHELL is `non-nil', will use shell from user input.
+If option DEDICATED-WINDOW is `non-nil' will create dedicated `multi-term' window ."
   (with-temp-buffer
     (let ((shell-name (or multi-term-program ;shell name
                           (getenv "SHELL")
@@ -84,8 +85,36 @@
       (if special-shell
           (setq shell-name (read-from-minibuffer "Run program: " shell-name)))
       ;; Make term, details to see function `make-term' in `term.el'.
-      (shell (concat "*" term-name "*")))))
-  )
+      (get-buffer-create (concat "*" term-name "*")))))
+(defun multi-term-dedicated-open ()
+  "Open dedicated `multi-term' window.
+Will prompt you shell name when you type `C-u' before this command."
+  (interactive)
+  (if (not (multi-term-dedicated-exist-p))
+      (let ((current-window (selected-window)))
+        (if (multi-term-buffer-exist-p multi-term-dedicated-buffer)
+            (unless (multi-term-window-exist-p multi-term-dedicated-window)
+              (multi-term-dedicated-get-window))
+          ;; Set buffer.
+          (setq multi-term-dedicated-buffer (multi-term-get-buffer current-prefix-arg t))
+          (set-buffer (multi-term-dedicated-get-buffer-name))
+          ;; Get dedicate window.
+          (multi-term-dedicated-get-window)
+          ;; Whether skip `other-window'.
+          (multi-term-dedicated-handle-other-window-advice multi-term-dedicated-skip-other-window-p))
+          ;; Internal handle for `multi-term' buffer.
+        (set-window-buffer multi-term-dedicated-window (get-buffer (multi-term-dedicated-get-buffer-name)))
+        (set-window-dedicated-p multi-term-dedicated-window t)
+        ;; Select window.
+        (select-window
+         (if multi-term-dedicated-select-after-open-p
+             ;; Focus dedicated terminal window if option `multi-term-dedicated-select-after-open-p' is enable.
+             multi-term-dedicated-window
+           ;; Otherwise focus current window.
+           current-window))
+        (shell (concat "*" multi-term-dedicated-buffer-name "*")))
+    (message "`multi-term' dedicated window has exist.")))
+  ;; )
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
