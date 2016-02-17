@@ -16,7 +16,9 @@
 ;;Windows specific
 (when (eq system-type 'windows-nt)
   (setq w32-pass-lwindow-to-system nil)
+  (setq w32-pass-alt-to-system nil)
   (setq w32-lwindow-modifier 'meta) ; Left Windows key
+  (setq w32-alt-modifier 'alt)
   )
 
 ;;No new frames
