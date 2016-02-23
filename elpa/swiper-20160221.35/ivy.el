@@ -46,7 +46,8 @@
 
 (defgroup ivy-faces nil
   "Font-lock faces for `ivy'."
-  :group 'ivy)
+  :group 'ivy
+  :group 'faces)
 
 (defface ivy-current-match
   '((((class color) (background light))
@@ -91,8 +92,6 @@
   '((t :foreground "red" :inherit minibuffer-prompt))
   "Face used by Ivy for a match required prompt.")
 
-(setcdr (assoc load-file-name custom-current-group-alist) 'ivy)
-
 (defface ivy-subdir
   '((t (:inherit 'dired-directory)))
   "Face used by Ivy for highlighting subdirs in the alternatives.")
@@ -108,6 +107,8 @@
 (defface ivy-virtual
   '((t :inherit font-lock-builtin-face))
   "Face used by Ivy for matching virtual buffer names.")
+
+(setcdr (assoc load-file-name custom-current-group-alist) 'ivy)
 
 (defcustom ivy-height 10
   "Number of lines for the minibuffer window."
@@ -709,9 +710,9 @@ If the text hasn't changed as a result, forward to `ivy-alt-done'."
   "Move cursor vertically down ARG candidates.
 If the input is empty, select the previous history element instead."
   (interactive "p")
-  (when (string= ivy-text "")
-    (ivy-previous-history-element 1))
-  (ivy-next-line arg))
+  (if (string= ivy-text "")
+      (ivy-previous-history-element 1)
+    (ivy-next-line arg)))
 
 (defun ivy-previous-line (&optional arg)
   "Move cursor vertically up ARG candidates."
@@ -1188,8 +1189,10 @@ candidates is updated after each input by calling COLLECTION.
 CALLER is a symbol to uniquely identify the caller to `ivy-read'.
 It is used, along with COLLECTION, to determine which
 customizations apply to the current completion session."
-  (let ((extra-actions (append (plist-get ivy--actions-list t)
-                               (plist-get ivy--actions-list this-command))))
+  (let ((extra-actions (delete-dups
+                        (append (plist-get ivy--actions-list t)
+                                (plist-get ivy--actions-list this-command)
+                                (plist-get ivy--actions-list caller)))))
     (when extra-actions
       (setq action
             (cond ((functionp action)
@@ -1513,6 +1516,7 @@ The previous string is between `ivy-completion-beg' and `ivy-completion-end'."
   "An Ivy function suitable for `completion-in-region-function'."
   (let* ((enable-recursive-minibuffers t)
          (str (buffer-substring-no-properties start end))
+         (completion-ignore-case case-fold-search)
          (comps
           (completion-all-completions str collection predicate (- end start))))
     (if (null comps)
@@ -2653,31 +2657,33 @@ a mouse click will call the appropriate action for that candidate.
 
 There is no limit on the number of *ivy-occur* buffers."
   (interactive)
-  (let* ((caller (ivy-state-caller ivy-last))
-         (occur-fn (plist-get ivy--occurs-list caller))
-         (buffer
-          (generate-new-buffer
-           (format "*ivy-occur%s \"%s\"*"
-                   (if caller
-                       (concat " " (prin1-to-string caller))
-                     "")
-                   ivy-text))))
-    (with-current-buffer buffer
-      (let ((inhibit-read-only t))
-        (erase-buffer)
-        (if occur-fn
-            (funcall occur-fn)
-          (ivy-occur-mode)
-          (insert (format "%d candidates:\n" (length ivy--old-cands)))
-          (ivy--occur-insert-lines
-           (mapcar
-            (lambda (cand) (concat "    " cand))
-            ivy--old-cands))))
-      (setf (ivy-state-text ivy-last) ivy-text)
-      (setq ivy-occur-last ivy-last)
-      (setq-local ivy--directory ivy--directory))
-    (ivy-exit-with-action
-     `(lambda (_) (pop-to-buffer ,buffer)))))
+  (if (not (window-minibuffer-p))
+      (user-error "No completion session is active")
+    (let* ((caller (ivy-state-caller ivy-last))
+           (occur-fn (plist-get ivy--occurs-list caller))
+           (buffer
+            (generate-new-buffer
+             (format "*ivy-occur%s \"%s\"*"
+                     (if caller
+                         (concat " " (prin1-to-string caller))
+                       "")
+                     ivy-text))))
+      (with-current-buffer buffer
+        (let ((inhibit-read-only t))
+          (erase-buffer)
+          (if occur-fn
+              (funcall occur-fn)
+            (ivy-occur-mode)
+            (insert (format "%d candidates:\n" (length ivy--old-cands)))
+            (ivy--occur-insert-lines
+             (mapcar
+              (lambda (cand) (concat "    " cand))
+              ivy--old-cands))))
+        (setf (ivy-state-text ivy-last) ivy-text)
+        (setq ivy-occur-last ivy-last)
+        (setq-local ivy--directory ivy--directory))
+      (ivy-exit-with-action
+       `(lambda (_) (pop-to-buffer ,buffer))))))
 
 (declare-function wgrep-change-to-wgrep-mode "ext:wgrep")
 

@@ -888,6 +888,18 @@ Set this variable to nil to disable the mode line completely."
   :risky t
   :package-version '(flycheck . "0.20"))
 
+(defcustom flycheck-mode-line-prefix "FlyC"
+  "Base mode line lighter for Flycheck.
+
+This will have an effect only with the default
+`flycheck-mode-line'.
+
+If you've customized `flycheck-mode-line' then the customized
+function must be updated to use this variable."
+  :group 'flycheck
+  :type 'string
+  :package-version '(flycheck . "0.26"))
+
 (defcustom flycheck-error-list-mode-line
   `(,(propertized-buffer-identification "%12b")
     " for buffer "
@@ -3072,7 +3084,7 @@ nil."
                      "")))
                 (`interrupted "-")
                 (`suspicious "?"))))
-    (concat " FlyC" text)))
+    (concat " " flycheck-mode-line-prefix text)))
 
 
 ;;; Error levels
@@ -7168,12 +7180,7 @@ See URL `https://github.com/zaach/jsonlint'."
   :error-filter
   (lambda (errors)
     (flycheck-sanitize-errors (flycheck-increment-error-columns errors)))
-  :predicate
-  (lambda ()
-    (or
-     (eq major-mode 'json-mode)
-     (and (buffer-file-name)
-          (string= (file-name-extension (buffer-file-name)) "json")))))
+  :modes json-mode)
 
 (flycheck-define-checker json-python-json
   "A JSON syntax checker using Python json.tool module.
@@ -7188,12 +7195,7 @@ See URL `https://docs.python.org/3.5/library/json.html#command-line-interface'."
           ;; Ignore the rest of the line which shows the char position.
           (one-or-more not-newline)
           line-end))
-  :predicate
-  (lambda ()
-    (or
-     (eq major-mode 'json-mode)
-     (and (buffer-file-name)
-          (string= (file-name-extension (buffer-file-name)) "json")))))
+  :modes json-mode)
 
 (flycheck-define-checker less
   "A LESS syntax checker using lessc.

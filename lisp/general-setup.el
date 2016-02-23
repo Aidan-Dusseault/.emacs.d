@@ -19,6 +19,7 @@
   (setq w32-pass-lwindow-to-system nil)
   (setq w32-pass-alt-to-system nil)
   (setq w32-lwindow-modifier 'meta) ; Left Windows key
+  (setq w32-alt-modifier 'alt)
   (setq w32-register-hot-key [A-q])
   (setq w32-register-hot-key [A-w])
   (setq w32-register-hot-key [A-e])
@@ -272,6 +273,9 @@
 
 ;; Custom keybindings
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
+(global-set-key (kbd "C-;") 'goto-line)
+(global-set-key (kbd "M-p") 'scroll-up-multi-line)
+(global-set-key (kbd "M-n") 'scroll-down-multi-line)
 (global-set-key (kbd "M-i") 'scroll-down-multi-line)
 (global-set-key (kbd "M-k") 'scroll-up-multi-line)
 (global-set-key (kbd "A-<backspace>") 'backward-kill-word)

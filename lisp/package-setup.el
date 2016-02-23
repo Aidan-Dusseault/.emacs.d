@@ -30,7 +30,9 @@
 (define-key ac-completing-map (kbd "A-K") 'ac-next)
 (define-key ac-completing-map (kbd "A-I") 'ac-previous)
 (define-key ac-mode-map (kbd "A-h") 'auto-complete)
-(define-key ac-completing-map (kbd "A-H") 'ac-isearch)
+(define-key ac-mode-map (kbd "C-,") 'auto-complete)
+(define-key ac-completing-map (kbd "C-,") 'ac-isearch)
+(define-key ac-completing-map (kbd "A-h") 'ac-isearch)
 
 ;;Emmet-mode
 (add-hook 'sgml-mode-hook #'emmet-mode) ;; Auto-start on any markup modes
@@ -112,6 +114,7 @@
     (message "`multi-term' dedicated window has exist.")))
 (setq multi-term-dedicated-select-after-open-p t)
 (setq multi-term-dedicated-close-back-to-open-buffer-p t)
+(global-set-key (kbd "C-'") 'multi-term-dedicated-toggle)
 (global-set-key (kbd "M-'") 'multi-term-dedicated-toggle)
 (global-set-key (kbd "A-'") 'multi-term-dedicated-toggle)
 
