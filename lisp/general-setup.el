@@ -7,8 +7,8 @@
 (defun smart-save ()
   (interactive)
   (if server-buffer-clients
-      ('server-edit)
-    ('save-buffer))
+      (server-edit)
+    (save-buffer))
   )
 
 ;;silence beeping
@@ -150,7 +150,7 @@
 
 ;;Don't use pager in shell
 (setenv "PAGER" "cat")
-(setenv "EDITOR" "emacsclient -n -a ''")
+(setenv "EDITOR" "emacsclient -a ''")
 
 ;;Clear command in shell
 (setq comint-input-sender 'n-shell-simple-send)
