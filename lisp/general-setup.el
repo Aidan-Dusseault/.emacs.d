@@ -3,6 +3,14 @@
 ;;Start server
 (server-start)
 
+;;Smart save
+(defun smart-save ()
+  (interactive)
+  (if server-buffer-clients
+      ('server-edit)
+    ('save-buffer))
+  )
+
 ;;silence beeping
 (setq ring-bell-function #'ignore)
 
@@ -252,7 +260,7 @@
 (global-set-key (kbd "A-v") 'yank)
 (global-set-key (kbd "A-V") 'select-kill-ring-insert)
 (global-set-key (kbd "A-a") 'mark-whole-buffer)
-(global-set-key (kbd "A-s") 'save-buffer)
+(global-set-key (kbd "A-s") 'smart-save)
 (global-set-key (kbd "A-S") 'write-file)
 (global-set-key (kbd "A-q") 'keyboard-escape-quit)
 (define-key key-translation-map (kbd "A-w") (kbd "TAB"))
