@@ -181,7 +181,7 @@
 (add-to-list 'yas/root-directory "~/.emacs.d/git/yasnippet-snippets")
 (define-key yas-minor-mode-map (kbd "<tab>") nil)
 (define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "M-j") 'yas-expand)
+(define-key yas-minor-mode-map (kbd "A-.") 'yas-expand)
 
 ;;Web-mode
 (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
