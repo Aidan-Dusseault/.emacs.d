@@ -160,6 +160,7 @@
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (define-key ivy-minibuffer-map (kbd "<return>") 'ivy-alt-done)
+(define-key ivy-minibuffer-map (kbd "A-r") 'ivy-immediate-done)
 (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-done)
 (define-key key-translation-map (kbd "A-n") (kbd "C-s"))
 (define-key key-translation-map (kbd "A-N") (kbd "C-r"))

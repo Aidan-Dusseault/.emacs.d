@@ -268,7 +268,6 @@
 (global-set-key (kbd "A-a") 'mark-whole-buffer)
 (global-set-key (kbd "A-s") 'smart-save)
 (global-set-key (kbd "A-S") 'write-file)
-(global-set-key (kbd "A-F") 'find-file)
 (define-key key-translation-map (kbd "A-q") (kbd "C-g"))
 (define-key key-translation-map (kbd "A-w") (kbd "TAB"))
 (global-set-key (kbd "A-p") 'set-mark-command)
