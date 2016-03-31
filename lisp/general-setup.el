@@ -224,6 +224,12 @@
     (scroll-up-line))
   )
 
+(defun backward-delete-word ()
+  (interactive)
+  (backward-kill-word)
+  (pop kill-ring)
+  )
+
 ;; Custom keybindings
 (global-set-key (kbd "C-x C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-;") 'goto-line)
@@ -231,7 +237,7 @@
 (global-set-key (kbd "M-n") 'scroll-up-multi-line)
 (global-set-key (kbd "M-i") 'scroll-down-multi-line)
 (global-set-key (kbd "M-k") 'scroll-up-multi-line)
-(global-set-key (kbd "A-<backspace>") 'backward-kill-word)
+(global-set-key (kbd "A-<backspace>") 'backward-delete-word)
 (global-set-key (kbd "A-S-<backspace>") 'kill-whole-line)
 (define-key key-translation-map (kbd "A-<return>") (kbd "RET"))
 (global-set-key (kbd "A-j") 'backward-char)
@@ -262,7 +268,8 @@
 (global-set-key (kbd "A-a") 'mark-whole-buffer)
 (global-set-key (kbd "A-s") 'smart-save)
 (global-set-key (kbd "A-S") 'write-file)
-(global-set-key (kbd "A-q") 'keyboard-escape-quit)
+(global-set-key (kbd "A-F") 'find-file)
+(define-key key-translation-map (kbd "A-q") (kbd "C-g"))
 (define-key key-translation-map (kbd "A-w") (kbd "TAB"))
 (global-set-key (kbd "A-p") 'set-mark-command)
 (define-key key-translation-map (kbd "A-e") (kbd "M-x"))
